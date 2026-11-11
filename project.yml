@@ -6,7 +6,6 @@ options:
     iOS: "17.0"
 
 targets:
-
   SwiftTest:
     type: application
     platform: iOS
@@ -19,11 +18,20 @@ targets:
     scheme:
       testTargets:
         - SwiftTestTests
+        - SwiftTestUITests
 
   SwiftTestTests:
     type: bundle.unit-test
     platform: iOS
     sources:
       - path: SwiftTestTests
+    dependencies:
+      - target: SwiftTest
+
+  SwiftTestUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: SwiftTestUITests
     dependencies:
       - target: SwiftTest
