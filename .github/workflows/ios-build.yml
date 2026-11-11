@@ -1,0 +1,40 @@
+name: iOS Build and Tests
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+
+  build-and-test:
+
+    runs-on: macos-26
+
+    steps:
+
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar version de Xcode
+        run: xcodebuild -version
+
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+
+      - name: Generar proyecto Xcode
+        run: xcodegen generate
+
+      - name: Compilar y ejecutar pruebas
+        run: |
+          xcodebuild test \
+            -project SwiftTest.xcodeproj \
+            -scheme SwiftTest \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO

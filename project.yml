@@ -1,0 +1,28 @@
+name: SwiftTest
+
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+
+targets:
+
+  SwiftTest:
+    type: application
+    platform: iOS
+    sources:
+      - path: SwiftTest
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.SwiftTest
+    scheme:
+      testTargets:
+        - SwiftTestTests
+
+  SwiftTestTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: SwiftTestTests
+    dependencies:
+      - target: SwiftTest
